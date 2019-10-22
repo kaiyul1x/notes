@@ -1,6 +1,7 @@
 1. 多线程开启服务：比如注册host; 从server端拿等待测试Job; 触发测试Job，启动docker测试; 每隔五秒钟向server发送heartbeat; 监控本地Job和host状态,并发送到server； 实时扫描测试日志 ，测试结果，并实时发送；
-2. 以JobId记录每个Job的测试日志，测试结果，以及控制台日志，写进文件保存本地并发送到server。
-3. 写shell脚本，安装依赖库，集成环境；创建目录文件；设置开机启动服务；使client service成为标准服务，具有start/restart/stop； 写makefile一键安装OpenTaaSClient service;
+2. 记录每个Job的测试日志，测试结果，以及控制台日志，写进文件保存本地并发送到server。
+3. 写shell脚本，安装依赖库，集成环境；创建目录文件；设置开机启动服务；使client service成为linux标准服务，具有start/restart/stop功能； 写makefile一键安装OpenTaaSClient service;
 4. 识别连接到host的devices,起docker的时候指定devices,然后对其测试；
 5. 读取host 、share目录下yaml配置文件，并实时监控， 当yaml文件内字段发生改变，重新注册host到server.
-6. 开启服务以jobId为标识符记录每个Job的测试报告，测试结果写进本地文件，并且实时扫描该Job的日志文件，测试结果，当发生改变的时候，向server端发送增量。
+6. 以jobId为标识符实时抓取并记录每个Job的测试报告，测试结果写进本地文件，并且实时扫描该Job的日志文件，测试结果，当发生改变的时候，向server端发送增量。
+7. 通过docker创建container, 在容器内部运行测试脚本，并实时抓取测试日志写到本地，并且判断退出码。
