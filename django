@@ -1,0 +1,61 @@
+Django请求的生命周期
+  1.wsgi,请求封装后交给Web框架
+  2.中间件，对请求进行效验或在请求对象中添加其他相关数据， 如： csrf, request.serssion
+  3.路由匹配 url
+  4.视图函数，在视图函数中进行业务逻辑的处理，  orm, templates => 渲染
+  5.中间件，对响应的数据进行处理
+  6.wsgi,将响应的内容发送给浏览器
+  
+  WSGI是一种WEB服务器，（网关接口） 但更像一个协议， 是一个WEB服务器（nginx）与应用服务器（uWSGI）通信的一种规范
+  uWSGI实现了WSGI的所有接口，完全用C编写的服务器，效率高，性能稳定；
+  
+  中间件：
+    中间件是介于request和response处理之间的一道过程，用于在全局范围内改变django的输入输出
+    中间件帮助我们在试图函数执行之前和执行之后都可以做一些额外的操作
+    例如：
+      默认启用CSRF保护，每次请求通过csrf中间检查请求中是否有正确的token值
+      用户发起请求时，通过自定义认真中间件，判断用户是否已经登录，
+  中间件的五个方法：
+      1.process_request: 权限认证
+      2.process_view: 路由匹配之后能够得到试图函数
+      3.process_template_responseprocess: 模板渲染执行
+      4.prcess_response:  请求响应执行
+  Django ORN的所有方法：
+  all(): 查询所有结果
+  filter(**kw): 
+  get(**kw):    
+  exclude(**kw): 包含了所给筛选条件不匹配的对象
+  order_by():  对查询结果排序
+  reverse(): 对查询结果反向排序呢
+  count(): 返回数据库中匹配查询的对象数量
+  first();  last(); exists(); values(): 返回一个ValueQuerySet
+  ditinct():  从返回结果中剔除重复记录
+  
+  Django 内置缓存机制： 
+  from django.views.devorators.cahe import cache_page
+  
+  @cache_page(10)
+  def index(request):
+    pass
+    
+orm和原生sql的优缺点：
+  1.orm开发速度快，操作简单；  执行速度慢，处理多表联查时，orm会变的复杂；
+  2.sql开发速度慢，执行速度快，性能强
+
+django rest framework框架组件：
+  序列化组件serializers  对queryset序列化以及对请求数据格式效验
+  路由组件routers
+  视图组件ModelViewSet 
+  认证组件： authentication_class
+  权限组件： permission_class
+  分页： 对获取到的数据进行分页处理， pagination_class
+  
+DRF 视图继承
+class View(object):
+class APIView(View): 封装了view,并重新封装了request，初始了`各种组件
+class GenericAPIView(views.APIView):
+增加了一些属性和方法， get_request, get_serialzer
+class GenericViewSet(ViewSetMixin, generics.GenericAPIView)
+父类ViewSetMixin 重写了as_view,返回return csrf_exempt(view)
+
+
