@@ -1,0 +1,54 @@
+celrty: 
+  application(task producer) 生产者
+  beat: 任务调度器，beat进程会读取配置文件的内容，周期性的将配置中到期需执行的任务发送给任务队列
+  broker (task queue) 任务队列， （redis, kafuka,MQ），消息中间件，接受任务生产者发送过来的任务消息
+  worker (task consumer) 可以是普通的worker, 执行任务的消费者，通常会在多台服务器运行的消费者，提高运行效率
+    
+  启动一个worker：  celery -A celery_app worker -l info
+  启动一个beat,随时检查配置变化：  celery -A celery_app beat -l info
+  
+  处理大量消息的分布式系统，异步任务队列
+  celery架构分三部分组成： 消息中间件，任务执行单元，任务执行结果存储
+  
+  1.异步调度：
+    task.py
+      from celery import celety
+      broker = 'redis: //127.0.0.1:6379/1'
+      backend = 'redis: //127.0.0.1:6379/2'  储存结果
+      app = celery('my_task', broker=broker, backend=backend)
+      @app.task
+      def add(x, y):
+        time.sleep(3)
+        return x + y
+      
+      add.delay(2,8) 异步调度
+   2 启动worker:     
+    celery worker -A celery_app_task -l info
+    
+ API
+  add.delay(1, 2)异步调用
+  result.readdy()  任务是否执行完毕，不会阻塞， 只是判断
+  result.get()  拿到任务执行结果， 会阻塞
+  
+  
+  定时任务：
+  
+  celeryconfig.py 
+  from datetime import timedelta
+  from celery.schedules import crontab
+
+  CELERY_TIMEZONE="Asia/Shanghai"
+  CELERY_SCHEDULE = {
+    'task1':{
+      'task':'celery_app.task1.add',
+      'schedule': timedelta(seconds=10s)
+      'args': (2,8)
+    }
+    'task2':{
+      'task': 'celery_app.task1.multipy'，
+      'schedule': crontab(hour=19, mintue=28),   每天19点28分执行
+      'args': (4,5)
+    }
+  }
+  
+  
