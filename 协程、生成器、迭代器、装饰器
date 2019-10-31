@@ -37,3 +37,16 @@ send()是向生成器导入参数并返回参数的，
  万能装饰器：
  
  *args 可变参数； **kwargs 关键字参数
+def decorator(*args, **kw):
+    def inner(func):
+        print('装饰器的参数{0}， {1}'.format(args, kw))
+        def wrapper(*args, **kw):
+            func(args, kw)
+        return wrapper
+    return inner
+
+@decorator(9999)
+def myfunc(*args, **kwargs):
+    print('被装饰函数的参数：'，**args， **kwargs)
+    
+
