@@ -1,0 +1,43 @@
+"""
+1, 装饰器实现单例
+"""
+def singleton(cls):
+    _isinstance = {}
+    def _singleton(*args, **kwargs):
+        if cls not in _isinstance:
+            _isinstance[cls] = cls(*args, **kwargs)
+        return _isinstance[cls]
+
+    return _singleton
+
+
+@singleton
+class A:
+    def add(self, a, b):
+        print(a + b)
+
+
+a = A()
+print(id(a))
+b = A()
+print(id(b))
+"""
+2. __new__实现单例
+"""
+
+import threading
+class Singleton():
+    def __new__(cls, *args, **kwargs):
+        if not hasattr(Singleton, "_isinstance"):
+            Singleton._isinstance = super().__new__(cls)
+        return Singleton._isinstance
+
+    def __init__(self):
+        pass
+def task():
+    obj = Singleton()
+    print(obj)
+
+for i in range(10):
+    t = threading.Thread(target=task)
+    t.start()
