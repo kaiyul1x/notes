@@ -1,0 +1,4 @@
+1. 设置cmd ,powershell  title
+  cmd >   title " new name"
+  powershell >  $Host.UI.RawUI.WindowTitle = "New Window Title"
+  
