@@ -1,0 +1,14 @@
+1. 配置远程连接：
+%% DANGER ZONE!
+%%
+%% Allowing remote connections for default user is highly discouraged
+%% as it dramatically decreases the security of the system. Delete the user
+%% instead and create a new one with generated secure credentials.
+[{rabbit, [{loopback_users, ['guest', 'admin']}]}].
+
+2. 启动服务：
+rabbitmq-plugins enable rabbitmq_management 
+3. 
+rabbitmq-service stop
+rabbitmq-service install
+rabbitmq-service start
