@@ -1,4 +1,6 @@
 1. 设置cmd ,powershell  title
   cmd >   title " new name"
   powershell >  $Host.UI.RawUI.WindowTitle = "New Window Title"
-  
+ 
+2. 查看cpu 核数
+   win+r   dxdiag
