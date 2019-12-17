@@ -1,0 +1,25 @@
+1. 再现有git仓库的基础上添加 子仓库：   git submodule add   【ssh/http】
+2. git diff --cached  【new-repository】
+
+
+获取含有子模块的项目时：
+1. git clone  [ssh]
+2. cd new-submodule
+3. git submodule init
+4. git submodule update
+合并上面操作：   进入子模块 ：  git submodule update --init --recursive  
+git clone --recurse-submodules [ssh]  将自动初始化和更新储存库中的每个子模块。
+
+
+在子目录 拉取代码：
+1.git fetch 
+2.git merge origin/master
+
+回到主目录 ：  git diff submodule 可以看到改变。   
+使用  git config --global diff.submodule log  ，之后可以直接使用 diff 
+
+在主目录pull子目录的 改变：
+  git submodule update --remote  [repository]
+  
+指定子目录 分支 拉取：
+git config -f .gitmodules submodule.[Repository].branch  [branch]
