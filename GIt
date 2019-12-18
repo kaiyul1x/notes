@@ -1,0 +1,3 @@
+git reset --soft  [-commit id -]   退回上一次提交，保存已有代码
+git restt --head   [-commit id -]  退回上一次提交代码状态。 
+git branch --set-upstream-to=origin/<branch>  <local bracn>   关联远程分支
