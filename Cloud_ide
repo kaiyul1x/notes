@@ -1,0 +1,8 @@
+简介： Cloud_ide 是一款模拟仿真工具，核心功能是通过画图调用systemC建模语言生成C++代码， 通过软件去模拟硬件的一些功能；（django + react +js）
+
+职责： 1. 对不同用户同时增加大量celery异步任务进行处理，利用多线程控制任务队列的添加顺序，达到每个用户添加的异步任务都可以立刻执行
+2. rabbitMQ做broker, redis用做resul_backend，设计celery做任务广播， 获取每个节点cpu物理数量，cpu使用情况，节点是否启动等节点信息；
+3. 项目工程通过http协议实现自动下载；
+4. gitlab-ci: 安装gitlab-runner, 编写.gitlab-ci.yml文件，再项目完成一次sprite，打tag时自动部署最新代码；
+5. socket实现实时传输build, run项目时的日志；
+6. 一些关于文件操作任务的API开发；
