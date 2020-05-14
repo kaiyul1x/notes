@@ -1,0 +1,14 @@
+
+As stated here,
+
+Creation of symbolic links requires the SeCreateSymbolicLinkPrivilege (“Create symbolic links”), which is granted only to administrators by default (but you can change that using security policy).
+
+To change the policies:
+
+Right click on Start→Run and launch secpol.msc.
+
+Open Security Settings → Local Policies → User Rights Assignment and select Create symbolic links (that represents SeCreateSymbolicLinkPrivilege).
+
+enter image description here
+
+Double-click on the item and add yourself (or the whole Users group) to the list.
